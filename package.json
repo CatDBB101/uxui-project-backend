@@ -1,0 +1,25 @@
+{
+    "name": "uxui-project-backend",
+    "module": "index.ts",
+    "type": "module",
+    "private": true,
+    "devDependencies": {
+        "@types/bun": "latest",
+        "tsx": "^4.23.15"
+    },
+    "peerDependencies": {
+        "typescript": "^5"
+    },
+    "dependencies": {
+        "@types/dotenv": "^8.2.3",
+        "@types/express": "^5.0.6",
+        "@types/mongoose": "^5.11.97",
+        "argon2": "^0.45.1",
+        "dotenv": "^17.4.2",
+        "express": "^5.2.1",
+        "mongoose": "^9.10.1"
+    },
+    "scripts": {
+        "dev": "nodemon --exec tsx index.ts"
+    }
+}
