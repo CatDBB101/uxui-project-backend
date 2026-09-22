@@ -3,7 +3,6 @@ import mongoose, { Schema, Document } from "mongoose";
 export interface ITeacher {
     username: string;
     password: string;
-    name: string;
 }
 
 const teacherSchema = new Schema<ITeacher>({
