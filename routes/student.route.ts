@@ -1,9 +1,12 @@
 import { Router, type Request, type Response } from "express";
 import Student from "@/models/student.models";
 import Teacher from "@/models/teacher.models";
+import { verifyCookieMiddleware } from "@/middlewares/cookie.middleware";
+import State from "@/models/state.models";
 
 const router = Router({ mergeParams: true });
 
+// register
 router.post(
     "/register",
     async (
@@ -41,7 +44,7 @@ router.post(
         res.send(result);
     },
 );
-
+// login
 router.post(
     "/login",
     async (
@@ -67,9 +70,51 @@ router.post(
             return res.status(401).send({ message: "incorrect password" });
         }
 
-        res.send(
-            JSON.stringify({ type: "student", id: findUser[0]!._id }),
-        );
+        res.send(JSON.stringify({ type: "student", id: findUser[0]!._id }));
+    },
+);
+// get student's state
+router.get(
+    "/state",
+    verifyCookieMiddleware("student"),
+    async (req: Request, res: Response) => {
+        const user = (req as any).user;
+
+        const states = await State.find({
+            studentId: user._id,
+        });
+
+        res.send(states);
+    },
+);
+// create student's state record
+router.post(
+    "/state",
+    verifyCookieMiddleware("student"),
+    async (
+        req: Request<
+            any,
+            any,
+            {
+                state: number;
+                code?: string;
+                time: number;
+            }
+        >,
+        res: Response,
+    ) => {
+        const { state, code, time } = req.body;
+        const user = (req as any).user;
+
+        const states = await State.insertOne({
+            teacherId: user.teacherId,
+            studentId: user._id,
+            state: state,
+            code,
+            time,
+        });
+
+        res.send(states);
     },
 );
 
