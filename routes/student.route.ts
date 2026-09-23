@@ -1,8 +1,10 @@
 import { Router, type Request, type Response } from "express";
-import Student from "@/models/student.models";
-import Teacher from "@/models/teacher.models";
+import Student from "@/models/student.model";
+import Teacher from "@/models/teacher.model";
 import { verifyCookieMiddleware } from "@/middlewares/cookie.middleware";
-import State from "@/models/state.models";
+import State from "@/models/state.model";
+import Workshop from "@/models/workshop.model";
+import ResponseModel from "@/models/response.model";
 
 const router = Router({ mergeParams: true });
 
@@ -98,18 +100,20 @@ router.post(
             {
                 state: number;
                 code?: string;
+                stack?: number[];
                 time: number;
             }
         >,
         res: Response,
     ) => {
-        const { state, code, time } = req.body;
+        const { state, code, stack, time } = req.body;
         const user = (req as any).user;
 
         const states = await State.insertOne({
             teacherId: user.teacherId,
             studentId: user._id,
             state: state,
+            stack,
             code,
             time,
         });
@@ -117,10 +121,64 @@ router.post(
         res.send(states);
     },
 );
+// get workshop list
+router.get(
+    "/workshops",
+    verifyCookieMiddleware("student"),
+    async (req: Request, res: Response) => {
+        const student = (req as any).user;
+        const teacherId = student.teacherId;
 
-router.get("/", async (req: Request, res: Response) => {
-    const teacher = await Student.find({});
-    res.send(teacher);
-});
+        const workshop = await Workshop.find({ teacherId });
+
+        res.send(workshop);
+    },
+);
+// create workshop response
+router.post(
+    "/responses",
+    verifyCookieMiddleware("student"),
+    async (
+        req: Request<
+            any,
+            any,
+            {
+                workshopId: string;
+                code?: string;
+                stack?: number[];
+                time: number;
+            }
+        >,
+        res: Response,
+    ) => {
+        const student = (req as any).user;
+        const studentId = student._id;
+        const teacherId = student.teacherId;
+
+        const { workshopId, stack, code, time } = req.body;
+
+        const result = await ResponseModel.insertOne({
+            teacherId,
+            workshopId,
+            studentId,
+            code,
+            stack,
+            time,
+        });
+
+        res.send(result);
+    },
+);
+// get workshop responses
+router.get(
+    "/responses",
+    verifyCookieMiddleware("student"),
+    async (req: Request, res: Response) => {
+        const student = (req as any).user;
+        const studentId = student._id;
+        const responses = await ResponseModel.find({ studentId });
+        res.send(responses);
+    },
+);
 
 export default router;

@@ -6,6 +6,7 @@ export interface IState extends Document {
     //
     state: number;
     code: string;
+    stack: number[];
     time: number;
     //
     createdAt?: Date;
@@ -31,6 +32,10 @@ const stateSchema = new Schema<IState>(
         code: {
             type: String,
             default: null,
+        },
+        stack: {
+            type: [Number],
+            default: [],
         },
         time: {
             type: Number,

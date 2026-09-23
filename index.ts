@@ -5,7 +5,6 @@ dotenv.config();
 
 import TeacherRouter from "@/routes/teacher.route.ts";
 import StudentRouter from "@/routes/student.route.ts";
-import { verifyCookieMiddleware } from "./middlewares/cookie.middleware";
 
 connectDB(process.env.DB_URI!);
 

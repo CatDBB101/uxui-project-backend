@@ -1,9 +1,10 @@
-import Student from "@/models/student.models";
-import Teacher from "@/models/teacher.models";
+import Student from "@/models/student.model";
+import Teacher from "@/models/teacher.model";
+import type { TAccount } from "@/types/account.type";
 import type { NextFunction, Request, Response } from "express";
 
 // Removed unnecessary 'async' from the factory function wrapper
-export const verifyCookieMiddleware = (type: "student" | "teacher") => {
+export const verifyCookieMiddleware = (type: TAccount) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
             const token = req.headers.key;
@@ -15,7 +16,7 @@ export const verifyCookieMiddleware = (type: "student" | "teacher") => {
             }
 
             const user: {
-                type: "student" | "teacher";
+                type: TAccount;
                 id: string;
             } = JSON.parse(token);
 
