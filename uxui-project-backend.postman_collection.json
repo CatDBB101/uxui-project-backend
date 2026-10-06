@@ -1,0 +1,525 @@
+{
+  "info": {
+    "_postman_id": "924499ce-fab6-4f0b-a1cb-337d4471e7b7",
+    "name": "uxui-project-backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "20499357"
+  },
+  "item": [
+    {
+      "name": "teacher",
+      "item": [
+        {
+          "name": "teacher register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "/* API นี้ไว้ใช้สำหรับ test เท่านั้น ห้ามเอาไปใช้ใน production */\r\n{\r\n    \"username\": \"test\", // require, unique\r\n    \"password\": \"test\" // require\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/teachers/register",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "teachers",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "teacher login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\" : \"test\", // require\r\n    \"password\" : \"test\" // require\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/teachers/login",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "teachers",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get teacher's student state",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "key",
+                "value": "{\"type\":\"teacher\",\"id\":\"6ab2643a08d22ff5dbd495ec\"}"
+              }
+            ],
+            "url": {
+              "raw": "localhost:3000/teachers/states",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "teachers",
+                "states"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create workshop",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "key",
+                "value": "{\"type\":\"teacher\",\"id\":\"6ab2643a08d22ff5dbd495ec\"}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"testWorkshop\", // require, unique\r\n    \"teacherHp\": 10, // optional\r\n    \"playerHp\": 10, // optional\r\n    \"inventory\": [\r\n        0,\r\n        0,\r\n        0,\r\n        0,\r\n        0,\r\n        0,\r\n        0,\r\n        0,\r\n        0\r\n    ], // optional (array length 9)\r\n    \"stack\": \"array\", // optional (enum \"array\", \"queue\")\r\n    \"hint\": \"\", // optional\r\n    \"code\": \"\" // optional \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/teachers/workshops",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "teachers",
+                "workshops"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get teacher's workshop",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "key",
+                "value": "{\"type\":\"teacher\",\"id\":\"6ab2643a08d22ff5dbd495ec\"}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/teachers/workshops",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "teachers",
+                "workshops"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get teacher's workshop response",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "key",
+                "value": "{\"type\":\"teacher\",\"id\":\"6ab2643a08d22ff5dbd495ec\"}"
+              }
+            ],
+            "url": {
+              "raw": "localhost:3000/teachers/responses",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "teachers",
+                "responses"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get teacher's workshop response as excel",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "key",
+                "value": "{\"type\":\"teacher\",\"id\":\"6ab2643a08d22ff5dbd495ec\"}"
+              }
+            ],
+            "url": {
+              "raw": "localhost:3000/teachers/responses/excel",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "teachers",
+                "responses",
+                "excel"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "student",
+      "item": [
+        {
+          "name": "student register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"teacherId\" : \"6ab2643a08d22ff5dbd495ec\", // require\r\n    \"username\" : \"test\", // require\r\n    \"password\" : \"test\" // require\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/students/register",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "students",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "student login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\" : \"test\", // require, unique\r\n    \"password\" : \"test\" // require\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/students/login",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "students",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get student state",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "key",
+                "value": "{\"type\":\"student\",\"id\":\"6ab268937fc652dee18b86d9\"}"
+              }
+            ],
+            "url": {
+              "raw": "localhost:3000/students/state",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "students",
+                "state"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create student state",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "key",
+                "value": "{\"type\":\"student\",\"id\":\"6ab268937fc652dee18b86d9\"}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"state\" : 1, // require\r\n    \"code\" : \"\", // optional\r\n    \"stack\" : [], // optional\r\n    \"time\" : 100 // optional (second)\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/students/state",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "students",
+                "state"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get student's workshop",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "key",
+                "value": "{\"type\":\"student\",\"id\":\"6ab268937fc652dee18b86d9\"}"
+              }
+            ],
+            "url": {
+              "raw": "localhost:3000/students/workshops",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "students",
+                "workshops"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create student workshop response",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "key",
+                "value": "{\"type\":\"student\",\"id\":\"6ab268937fc652dee18b86d9\"}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"workshopId\": \"6ab3d29b2c56fd5091fbab98\", // required\r\n    \"code\" : \"\", // optional\r\n    \"stack\" : [], // optional\r\n    \"time\" : 100 // optional (second)\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/students/responses",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "students",
+                "responses"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get student workshop response",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "key",
+                "value": "{\"type\":\"student\",\"id\":\"6ab268937fc652dee18b86d9\"}"
+              }
+            ],
+            "url": {
+              "raw": "localhost:3000/students/responses",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "students",
+                "responses"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "workshop",
+      "item": [
+        {
+          "name": "create workshop response when student finish workshop",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/workshops/responses",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "workshops",
+                "responses"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "form",
+      "item": [
+        {
+          "name": "edit form",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"form\": [ // required\r\n        {\r\n            \"type\": \"multiple_choice\",\r\n            \"question\": \"question\",\r\n            \"choices\": [\r\n                \"1\",\r\n                \"2\",\r\n                \"3\",\r\n                \"4\",\r\n                \"5\"\r\n            ]\r\n        },\r\n        {\r\n            \"type\": \"message\",\r\n            \"question\": \"question\",\r\n            \"choices\": []\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/forms?state=6",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "forms"
+              ],
+              "query": [
+                {
+                  "key": "state",
+                  "value": "6",
+                  "description": "require: -1, 1, 2, 3, 4, 5, 6"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get form",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/forms?state=1",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "forms"
+              ],
+              "query": [
+                {
+                  "key": "state",
+                  "value": "1",
+                  "description": "require: -1, 1, 2, 3, 4, 5, 6"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create form response",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"studentId\" : \"6ab268937fc652dee18b86d9\", // required\r\n    \"state\" : -1, // optional: default = -1,  you can put (1, 2, 3, 4, 5, 6) too.\r\n    \"answers\": [1, \"student's comment\"] // required\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/forms/response",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "forms",
+                "response"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
