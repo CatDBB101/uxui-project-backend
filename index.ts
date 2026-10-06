@@ -5,6 +5,7 @@ dotenv.config();
 
 import TeacherRouter from "@/routes/teacher.route.ts";
 import StudentRouter from "@/routes/student.route.ts";
+import FormRouter from "@/routes/form.route.ts";
 
 connectDB(process.env.DB_URI!);
 
@@ -19,6 +20,7 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/teachers", TeacherRouter);
 app.use("/students", StudentRouter);
+app.use("/forms", FormRouter);
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);

@@ -5,6 +5,7 @@ import State from "@/models/state.model";
 import type { TStack } from "@/types/stack.type";
 import Workshop from "@/models/workshop.model";
 import ResponseModel from "@/models/response.model";
+import { sendExcelResponse } from "@/services/convertResponseToExcel";
 
 const router = Router({ mergeParams: true });
 
@@ -152,5 +153,26 @@ router.get(
         res.send(responses);
     },
 );
+// get wrokshop's student responses as excel
+router.get("/responses/excel", async (req: Request, res: Response) => {
+    try {
+        const responses = await ResponseModel.find({})
+            .populate("teacherId", "username")
+            .populate("studentId", "username")
+            .populate("workshopId", "name")
+            .lean()
+            .exec();
+
+        const timestamp = new Date().toISOString().split("T")[0];
+        const fileName = `Workshop_Responses_${timestamp}.xlsx`;
+
+        await sendExcelResponse(responses as any, res, fileName);
+    } catch (error) {
+        console.error("Failed to export Excel:", error);
+        if (!res.headersSent) {
+            res.status(500).json({ error: "Failed to generate Excel file" });
+        }
+    }
+});
 
 export default router;

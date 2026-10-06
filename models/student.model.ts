@@ -6,7 +6,7 @@ export interface IStudent {
     password: string;
 }
 
-const teacherSchema = new Schema<IStudent>({
+const studentSchema = new Schema<IStudent>({
     teacherId: {
         type: Schema.Types.String || Schema.Types.ObjectId,
         ref: "Teacher",
@@ -23,5 +23,5 @@ const teacherSchema = new Schema<IStudent>({
     },
 });
 
-const Student = mongoose.model<IStudent>("Student", teacherSchema);
+const Student = mongoose.model<IStudent>("Student", studentSchema);
 export default Student;

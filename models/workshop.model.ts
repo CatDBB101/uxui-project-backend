@@ -50,5 +50,5 @@ const workshopSchema = new Schema<IWorkshop>({
     },
 });
 
-const Workshop = mongoose.model<IWorkshop>("Workshope", workshopSchema);
+const Workshop = mongoose.model<IWorkshop>("Workshop", workshopSchema);
 export default Workshop;
